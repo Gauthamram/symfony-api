@@ -27,15 +27,17 @@ class ApartmentController extends ApiController
 
     public function index(Request $request, int $id = NULL)
     {
-    	if($request->isMethod('POST'))
+        $apartment = $this->getDoctrine()->getRepository(Apartment::class)->find($id);
+
+    	if($request->isMethod('PUT'))
     	{
-            $record = $this->processForm();
+            $record = $this->processForm($request, ApartmentType::class, $apartment, 'PUT');
+            return $this->respond($apartment);
     	} else {
-    		$data = $this->getDoctrine()->getRepository(Apartment::class)->find($id);
-    		if (!$data) {
+    		if (!$apartment) {
     			throw New NotFoundHttpException("Apartment Not found.");
     		} else {
-        		return $this->respond($data);
+        		return $this->respond($apartment);
     		}
     	}
     }

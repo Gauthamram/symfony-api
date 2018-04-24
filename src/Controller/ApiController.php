@@ -6,8 +6,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use App\Exception\InvalidFormException;
-use App\Entity\Apartment;
-use App\Form\ApartmentType;
 
 class ApiController extends Controller
 {
@@ -22,9 +20,10 @@ class ApiController extends Controller
 
     /**
      * [processForm description]
-     * @param  Apartment $apartment
-     * @param  array     $parameters
-     * @param  string    $method
+     * @param  request Request instance
+     * @param  objectType     valid Type of object
+     * @param  object    object to be validated
+     * @param method HTTP Method
      * @return [inserted apartment object]
      */
     protected function processForm(Request $request, $objectType, object $object, $method = 'PUT')

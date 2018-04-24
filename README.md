@@ -8,7 +8,7 @@ API using symfony 4
 - Run composer install/update
 
 ## API ENDPOINTS
-"/" - lists all the endpoints and their description.
-"/apartments" - List of all the Apartments.
-"/apartment/{id}" - Apartment details of the id passed.
+"/" - lists all the endpoints and their description. <br/>
+"/apartments" - List of all the Apartments. <br/>
+"/apartment/{id}" - Apartment details of the id passed.<br/>
 

@@ -1,3 +1,31 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+apartments:
+  path: /apartments
+  controller: App\Controller\ApartmentController::list
+  methods: [GET, HEAD]
+  defaults:
+    _format: json
+
+apartment:
+  path: /apartment/{id}
+  controller: App\Controller\ApartmentController::index
+  methods: [GET, HEAD]
+  defaults:
+    _format: json
+  requirements:
+    page: '\d+'
+
+apartment_edit:
+  path: /apartment/{id}
+  controller: App\Controller\ApartmentController::index
+  methods: [POST, OPTIONS]
+  requirements:
+    page: '\d+'
+  defaults:
+    _format: json
+
+apartment_create:
+  path: /apartments/create
+  controller: App\Controller\ApartmentController::create
+  methods: [GET, POST, OPTIONS]
+  # defaults:
+  #   _format: json

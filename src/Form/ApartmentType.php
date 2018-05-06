@@ -2,6 +2,7 @@
 namespace App\Form;
 
 use App\Entity\Apartment;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -9,10 +10,13 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ApartmentType extends AbstractType {
-	public function buildForm(FormBuilderInterface $builder, array $options) {
+class ApartmentType extends AbstractType
+{
+	public function buildForm(FormBuilderInterface $builder, array $options)
+    {
 		$builder
             ->add('street',TextType::class)
             ->add('move_in_date',DateTimeType::class, array(
@@ -22,7 +26,7 @@ class ApartmentType extends AbstractType {
             ->add('country',TextType::class)
             ->add('post_code',IntegerType::class)
             ->add('contact_email',EmailType::class)
-            ->add('user_id',IntegerType::class)
+            ->add('user',EntityType::class, array('class' => User::class))
             ->add('submit', SubmitType::class);
 	}
 

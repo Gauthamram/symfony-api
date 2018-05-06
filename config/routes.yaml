@@ -1,9 +1,28 @@
+usersignup:
+  path: /user/create
+  controller: App\Controller\UserController::create
+  methods: [POST, OPTIONS]
+  defaults:
+    _format: json
+
+users:
+  path: /users
+  controller: App\Controller\UserController::list
+  methods: [GET, HEAD]
+  defaults:
+    _format: json
+
+user:
+  path: /user/{id}
+  controller: App\Controller\UserController::index
+  methods: [GET, HEAD]
+  defaults:
+    _format: json
+
 apartments:
   path: /apartments
   controller: App\Controller\ApartmentController::list
   methods: [GET, HEAD]
-  defaults:
-    _format: json
 
 apartment:
   path: /apartment/{id}
@@ -17,7 +36,7 @@ apartment:
 apartment_edit:
   path: /apartment/{id}
   controller: App\Controller\ApartmentController::index
-  methods: [POST, OPTIONS]
+  methods: [GET, PUT, OPTIONS]
   requirements:
     page: '\d+'
   defaults:
@@ -26,6 +45,6 @@ apartment_edit:
 apartment_create:
   path: /apartments/create
   controller: App\Controller\ApartmentController::create
-  methods: [GET, POST, OPTIONS]
+  methods: [POST, OPTIONS]
   # defaults:
   #   _format: json

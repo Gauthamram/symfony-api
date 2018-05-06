@@ -9,13 +9,20 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Controller\ApiController;
 use App\Entity\Apartment;
 use App\Form\ApartmentType;
+use App\Transformers\ApartmentTransformer;
 
 class ApartmentController extends ApiController
 {
+    public function __construct()
+    {
+        $this->apartmentTransformer = New ApartmentTransformer();
+    }
+
     public function list()
     {
     	try {
-            $data = $this->getDoctrine()->getRepository(Apartment::class)->findall();
+            $apartments = $this->getDoctrine()->getRepository(Apartment::class)->findall();
+            $data = $this->apartmentTransformer->transformCollection($apartments);
         } catch (Exception $e) {
             $data = NULL;
         }
@@ -32,12 +39,12 @@ class ApartmentController extends ApiController
     	if($request->isMethod('PUT'))
     	{
             $record = $this->processForm($request, ApartmentType::class, $apartment, 'PUT');
-            return $this->respond($apartment);
+            return $this->respond($this->apartmentTransformer->transform($apartment));
     	} else {
     		if (!$apartment) {
     			throw New NotFoundHttpException("Apartment Not found.");
     		} else {
-        		return $this->respond($apartment);
+        		return $this->respond($this->apartmentTransformer->transform($apartment));
     		}
     	}
     }
@@ -47,7 +54,7 @@ class ApartmentController extends ApiController
         $apartment = new Apartment();
         if($request->isMethod('POST')){
             $data = $this->processForm($request, ApartmentType::class, $apartment, 'POST');
-            return $this->respond($data);
+            return $this->respond($this->apartmentTransformer->transform($data));
         }
     }
 }
